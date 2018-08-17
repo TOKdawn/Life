@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+    }
+
+    #show {
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 0px;
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        background-color: #111;
+        background-image: paint(theshow);
+    }
+</style>
+
+<body>
+    <div id='show'></div>
+</body>
+<script>
+    if ('paintWorklet' in CSS) {
+        console.log('it work')
+        CSS.paintWorklet.addModule('./worklet.js');
+    }
+</script>
+
+</html>
