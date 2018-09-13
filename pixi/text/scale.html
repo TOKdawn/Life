@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>scale</title>
+</head>
+<body onload="main()">
+  
+</body>
+<script src="./js/pixi.min.js"></script>
+<script>
+    function main(){
+
+
+
+
+           var app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
+            document.body.appendChild(app.view); 
+
+
+var assetsToLoad = ["./img/download.png"];
+        // create a new loader
+loader = PIXI.loader.add(assetsToLoad).load(onAssetsLoaded);
+        // use callback
+        
+        //begin load
+
+
+        function onAssetsLoaded() {
+            var bunnytexture = PIXI.Texture.fromImage("./img/download.png");
+            var bunny = new PIXI.Sprite(bunnytexture);
+            // this will log the correct width and height as the image was preloaded into the pixi.js cache
+            var bunnyContainer = new PIXI.Container();
+            bunny.scale.set(0.5);
+            bunny.x = 0;
+            bunny.y = 0;
+            bunny.buttonMode = true;
+            bunnyContainer.addChild(bunny);
+            bunnyContainer.x = 5;
+            bunnyContainer.y = 5;
+            app.stage.addChild(bunnyContainer);
+            console.log(bunny.width, bunnyContainer.height);
+            var graphics = new PIXI.Graphics();
+            // graphics.beginFill(0xFF00BB, 0.25);
+            graphics.lineStyle(1, 0xFF00FF, 1,1);
+            graphics.drawRect(0,0,bunnyContainer.width+1,bunnyContainer.height+1);
+            graphics.endFill();
+            bunny.interactive = true;
+
+            // Shows hand cursor
+            bunny.buttonMode = true;
+            bunny.on('pointerdown', onClick);
+          
+            bunnyContainer.addChild(graphics);
+            bunnyContainer.addChild(bunny);
+            app.stage.addChild(bunnyContainer);
+            // Pointers normalize touch and mouse
+            function onClick() {
+                console.log('sss')
+                bunnyContainer.x *= 1.1;
+                 bunnyContainer.y *= 1.1;
+                //  graphics.drawRect(0, 0, bunnyContainer.width, bunnyContainer.height);
+            }
+
+        }
+        
+       
+  
+
+    }
+</script>
+</html>

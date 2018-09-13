@@ -1,0 +1,50 @@
+{
+  "name": "mt",
+  "version": "1.0.0",
+  "description": "HTML with pixi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "TOKdawn",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "eslint": "^4.19.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.29.0",
+    "jquery": "^3.3.1",
+    "json-loader": "^0.5.4",
+    "node-sass": "^4.9.3",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.22.1",
+    "url-loader": "^1.1.1",
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^17.2.0",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "howler": "^2.0.14",
+    "pixi-layers": "^0.1.9",
+    "pixi-spine": "^1.5.16",
+    "pixi.js": "^4.8.1",
+    "url-loader": "^1.1.1"
+  }
+}

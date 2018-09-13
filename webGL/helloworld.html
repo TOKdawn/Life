@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hellowebGL</title>
+</head>
+<body onload="main()">
+    <canvas id="example" width="400" height="400">
+        Please use a browser aupports "canvas"
+    </canvas>
+
+</body>
+<script>
+   function main(){
+       var canvas = document.getElementById('example');
+       if(!canvas){
+           console.log('cant find <canvas>');
+           return;
+       }
+       var ctx = canvas.getContext('2d');
+       ctx.fillStyle = 'rgba(0,0,255,1.0)';
+       ctx.fillRect(120,10,150,150);
+
+
+       var gl = getWebGLContext(canvas);
+       if(!gl){
+           console.log('cant redering for webGL')
+           return;
+       }
+   }
+
+</script>
+</html>
