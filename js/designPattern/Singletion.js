@@ -1,3 +1,5 @@
+// 单例模式
+
 var mySingletion = (function(){
     var instance;
     function init(){

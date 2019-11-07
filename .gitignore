@@ -1,0 +1,10 @@
+.settings/
+.classpath
+.project
+/WebRoot/WEB-INF/classes
+/.buildpath
+/bin/
+/build/
+/.metadata/
+.DS_Store
+.vscode/
