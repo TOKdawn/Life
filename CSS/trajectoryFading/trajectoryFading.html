@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>trajectoryFading</title>
 </head>
 <body>
     <button onclick="javaScript:add();"> +++ </button>
     <button onclick="javaScript:sub();"> --- </button>
-    <canvas class="top" id="myCanvas" width="504" height="144" style="width: 504px; height: 144px; left: 394px; bottom: 10px;"></canvas>
+    <!-- <canvas class="" id="pointMap" width="56" height="112" style="width: 120px; height: 240px; left: 394px; bottom: 250px;"></canvas>
+    <canvas class="" id="dointMap" width="56" height="112" style="width: 120px; height: 240px; left: 594px; bottom: 250px;"></canvas> -->
+    <canvas class="top" id="myCanvas" width="588" height="168" style="width: 588px; height: 168px; left: 3px; bottom: 10px;"></canvas>
 </body>
 <style>
     body{
@@ -26,48 +28,191 @@
 </style>
 <script type="text/javascript">
     /*
-    * 总宽504 高144 / 宽分42 每份12 / 高分6 每份24
-    * 移动一次为 4 / 6次为一格
+    * 总宽2352 高672 / 宽分42 每份56 / 高分6 每份112 
+    * 移动一次为 16 / 7次为一格
     *
     *
     */
+
+    var DATA = {
+        '0':[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            ],
+        '1':[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+        ],
+        '2':[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+        ],
+        '3':[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+        ],
+        '4':[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+        ],
+        '5':[
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+        ],
+    }
+
+
     var progress = 0;
     var beginX = 0;
+    var beginY = 0;
+    var excursionX = 0;
+    var excursionY = 0;
     var c=document.getElementById("myCanvas");
-        var ctx=c.getContext("2d");
-    function moveX(flag){ //true 下移 false 上移
+    var ctx=c.getContext("2d");
+    var NUM = 0
+    function moveY(flag){ //true 下移 false 上移
         if(flag){
-            beginX += 4
-            if(beginX > 24){
-                beginX = 0
+            beginY += 4
+            if(beginY > 28){
+                beginY = 0
             }
         }else{
-            beginX -= 4
-            if(beginX < 0){
-                beginX = 24
+            beginY  -= 4
+            if(beginY < 0){
+                beginY = 28
             }
         }
     }
+
     function add(){
-        ctx.clearRect(0,0,504,120);
+        ctx.clearRect(0,0,588,140);
         // ctx.stroke();
-        moveX(true);
+        moveY(true);
         // ctx.rect(0,0+beginX,12,120);
         ctx.fillStyle = 'black';
-        ctx.fillRect(0,0+beginX,12,120);
+        // ctx.fillRect(0,0+beginX,12,120);
         // ctx.stroke();
-      
-    }
-    function sub(){
+        NUM++
+        if(NUM>5){
+            NUM = 0
+        }
+        // drawPMap(NUM);
+        // drawDMap(NUM);
 
+       excursionX = -14
+       excursionY = -28
+        for(var drawX = 0; drawX<42; drawX++  ){
+            excursionX +=  14;
+            for(var drawY = 0; drawY<5; drawY++){
+                excursionY += 28;
+                if(excursionY >= 140){
+                    excursionY = 0
+                }
+                if(Math.round(Math.random()*10)%2){
+                    drawPMap(DATA[NUM][drawY][drawX])
+                }else{
+                    drawDMap(DATA[NUM][drawY][drawX])
+                }
+            }
+        }
     }
 
+    function drawPMap(type){ //粒度
+        var grain = 2
+        var xTimes = 2
+        var yTimes = 2
+        ctx.fillStyle = 'black';
+        var flag = true;
+        switch(type){
+            case 0:
+                return; 
+            break;
+            case 1: 
+                grain = 2
+                xTimes = 2
+                yTimes = 2
+            break;
+            case 2:
+                grain = 2
+                xTimes = 2
+                yTimes = 1
+            break;
+            case 3:
+            ctx.fillRect(beginX+excursionX,beginY+excursionY,14,28);
+            return;
+            break;
+        }
+        // pMap.clearRect(0,0,56,112)
+        for(var x = 0; x<14; x+=grain*yTimes){
+            for(var y = 0; y<28; y+=grain*xTimes){
+                if(flag){
+                    ctx.fillRect(x+beginX+excursionX,y+beginY+excursionY,grain,grain);
+                }else{
+                    ctx.fillRect(x+beginX+excursionX,y+beginY+grain+excursionY,grain,grain);
+                }
+            }
+            flag = !flag;
+        }
+    }
+    function drawDMap(type){ //粒度
+        var grain = 2
+        var xTimes = 2
+        var yTimes = 2
+        ctx.fillStyle = 'black';
+        var flag = true;
+        switch(type){
+            case 0:
+                return; 
+            break;
+            case 1: 
+                grain = 2
+                xTimes = 2
+                yTimes = 2
+            break;
+            case 2:
+                grain = 2
+                xTimes = 2
+                yTimes = 1
+            break;
+            case 3:
+            ctx.fillRect(beginX+excursionX,beginY+excursionY,14,28);
+            return;
+            break;
+        }
+        // dMap.clearRect(0,0,56,112)
+        for(var x = 0; x<14; x+=grain*yTimes){
+            for(var y = 0; y<28; y+=grain*xTimes){
+                if(flag){
+                    ctx.fillRect(x+beginX+excursionX,y+beginY+excursionY,grain,grain);
+                }else{
+                    ctx.fillRect(x+beginX+excursionX,y+beginY+1+excursionY,grain,grain);
+                }
+            }
+            flag = !flag;
+        }
+    }
+    
     window.onload = function(){
-        ctx.rect(0,120,504,24);
-        ctx.stroke();
         ctx.fillStyle = 'pink';
-        ctx.fillRect(0,120,504,24);
-
+        ctx.fillRect(0,140,588,28);
     };
 </script>
 </html>

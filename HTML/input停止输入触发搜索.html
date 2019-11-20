@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="example" />
+    <p id="example-output">Nothing yet</p>
+</body>
+<script>
+    var timer = null;
+    function debounce(callback, delay) {
+        return function () {
+            var context = this;
+            var args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, delay);
+        }
+    }
+    function ajax(){
+        console.log($(this).val())
+        $('#example-output').text($(this).val());
+    }
+    $('#example').bind('input propertychange',debounce(ajax,500))
+</script>
+
+</html>
