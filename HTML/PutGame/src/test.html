@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.3, shrink-to-fit=no, minimum-scale=0.3, maximum-scale=0.3, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .box {
+      font-size: 50px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 200px;
+    }
+    .head_list {
+      height: 200px;
+      background: #fff;
+    }
+
+    .head_list ul {
+      height: 200px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .head_list ul li {
+      list-style:none;
+      float: left;
+      width: 20%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+    }
+    .head_list ul li img {
+      margin-top: 50px;
+      height: 100px;
+      width: 100px;
+    }
+
+    .active {
+      color: cornflowerblue;
+      background: #eee;
+    }
+
+    .content {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      height: 800px;
+      width: 100%;
+      background: #eee;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+    .scene{
+      background: pink;
+      height: 800px;
+      float: left;
+      width: 45%;
+      margin: 2.5%;
+    }
+
+    .scene img{
+      width: 100%;
+      height: 600px;
+    }
+
+    .scene p {
+      text-align: center;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- tab 展开 -->
+  <div class="box">
+    <div class="head_list">
+      <ul>
+        <li class="oli active">人物</li>
+        <li class="oli">道具</li>
+        <li class="oli">贴纸</li>
+        <li class="oli">场景</li>
+        <li class="oicon"><img /></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="content_list content_list_1" style="display:block;">
+        <!-- 人物 -->
+        <div class="person">
+          <img src="${ require('./../assets/img/male.png') }" alt="">
+          <p>现代</p>
+        </div>
+      </div>
+      <div class="content_list content_list_2" style="display:none;">2</div>
+      <div class="content_list content_list_3" style="display:none;">3</div>
+      <div class="content_list content_list_4" style="display:none;">
+        <!-- 场景 -->
+        <div class="scene">
+          <img src="${ require('./../assets/img/bg1.jpg') }" alt="">
+          <p>现代</p>
+        </div>
+        <div class="scene">
+          <img src="${ require('./../assets/img/bg2.jpg') }" alt="">
+          <p>怀旧</p>
+        </div>
+        <div class="scene">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // tab 切换
+    const oli = document.querySelectorAll('.oli')
+    const ocontent = document.querySelector('.content')
+    const obox = document.querySelector('.box')
+    const iconList = ['./../assets/packup.png', './../assets/pulldown.png']
+    const oicon = document.querySelector('.oicon')
+
+    const odiv = ocontent.querySelectorAll('.content_list')
+
+    // icon 初始化
+    oicon.querySelector('img').src = './../assets/packup.png'
+    let iconNum = 0
+
+    for (let i = 0; i < oli.length; i++) {
+      oli[i].index = i
+      oli[i].onclick = function () {
+
+        ocontent.style.display = 'block'
+        obox.style.height = '1000px'
+        iconNum = 1;
+        oicon.querySelector('img').src = iconList[iconNum]
+
+        for (let i = 0; i < oli.length; i++) {
+          oli[i].className = ""
+          odiv[i].style.display = "none"
+        }
+        this.className = "active"
+        odiv[this.index].style.display = "block"
+      }
+    }
+
+    // icon 点击切换
+    oicon.onclick = () => {
+      iconNum = iconNum < iconList.length - 1 ? iconNum + 1 : iconNum = 0
+      oicon.querySelector('img').src = iconList[iconNum]
+      // 收起菜单
+      ocontent.style.display = iconNum === 0 ? 'none' : 'block'
+      obox.style.height = iconNum === 0 ? '200px' : '1000px'
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+.begin,
+.end {
+  text-align: center;
+  position: absolute;
+  background-color: #eee;
+  width: 100vw;
+  height: 100vh;
+  div {
+    font-size: 80px;
+    margin-top: 20vh;
+  }
+}
+
+p {
+  font-size: 44px;
+  margin-top: 10vh;
+}
+
+.end {
+  /* display: none; */
+  z-index: -1;
+  opacity: 0;
+}
+
+button {
+  font-size: 50px;
+  margin-top: 10vh;
+  background-color: #777;
+  border: none;
+  color: white;
+  padding: 35px 52px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.begin_button {
+  display: none;
+}
+
+// 滚动条
+.bg_fff {
+  background-color: #fff;
+}
+
+.xui-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 750px;
+  /*height:100vh;*/
+  background-color: #efeff4;
+}
+
+.xui-process {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 28px 0 12px;
+  width: 76%;
+  .xui-icon-flag {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 12px;
+    height: 18px;
+    background-size: 11px;
+  }
+  .xui-process-static {
+    width: 100%;
+    height: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 198, 255, .6);
+    background-color: rgba(0, 198, 255, .6);
+  }
+  .xui-process-active {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    width: 0;
+    height: 14px;
+    border: 1px solid #4dafe2;
+    border-radius: 10px;
+    background-image: linear-gradient(60deg, transparent 0rem, transparent 0.8rem, #4dafe2 0.8rem, #4dafe2 1.6rem, transparent 1.6rem, transparent 2.4rem, #4dafe2 2.4rem);
+    background-color: #008cd5;
+    background-size: 20px 38px;
+    box-shadow: 1px 1px 5px rgba(0, 140, 213, .8);
+    animation: process 800ms infinite linear;
+    .xui-process-active:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      border-radius: 10px;
+      background-image: linear-gradient(to bottom, rgba(0, 140, 213, .6), rgba(0, 140, 213, .6) 15%, transparent 60%, rgba(0, 140, 213, .6));
+    }
+  }
+}
+
+/* 动画 */
+@keyframes process {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 20px 0;
+  }
+}
+
+// tab 切换
+.box {
+  font-size: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  display: none;
+}
+
+.head_list {
+  background: #fff;
+  height: 200px;
+  ul {
+    height: 200px;
+    padding: 0;
+    margin: 0;
+    li {
+      list-style:none;
+      float: left;
+      width: 20%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      img {
+        margin-top: 50px;
+        height: 100px;
+        width: 100px;
+      }
+    }
+  }
+}
+
+.active {
+  color: cornflowerblue;
+  background: #eee;
+}
+
+.content {
+  z-index: 1;
+  display: none;
+  position: absolute;
+  bottom: 0;
+  height: 800px;
+  width: 100%;
+  background: #eee;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.scene{
+  background: pink;
+  height: 600px;
+  float: left;
+  width: 45%;
+  margin: 2.5%;
+  margin-bottom: 0;
+  img{
+    width: 100%;
+    height: 600px;
+  }
+  p {
+    text-align: center;
+  }
+}

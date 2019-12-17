@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.3, shrink-to-fit=no, minimum-scale=0.3, maximum-scale=0.3, user-scalable=no">
+  <title>Hello World</title>
+</head>
+
+<body>
+  <!-- 开始 -->
+  <div id='begin' class="begin">
+    <button id='begin_button' class="begin_button">
+      开始
+    </button>
+    <!-- 滚动条 -->
+    <div class="xui-process">
+      <i id="icon-flag" class="xui-icon-flag"></i>
+      <div class="xui-process-static"></div>
+      <div id="process-bar" class="xui-process-active"></div>
+    </div>
+  </div>
+  <!-- 结束 -->
+  <div id='end' class="end">
+    <div class="button_bar">
+      <button onclick="replay()" class='z_button' id="replay">
+        再玩一次
+      </button>
+      <button class='z_button' id="goback">
+        返回主页
+      </button>
+    </div>
+  </div>
+  <!-- tab -->
+  <div class="box">
+      <div class="head_list">
+        <ul>
+          <li class="oli active">人物</li>
+          <li class="oli">道具</li>
+          <li class="oli">贴纸</li>
+          <li class="oli">场景</li>
+          <li class="oicon"><img /></li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="content_list_1" style="display:block;">1</div>
+        <div class="content_list_2" style="display:none;">2</div>
+        <div class="content_list_3" style="display:none;">3</div>
+        <div class="content_list_4" style="display:none;">
+        <!-- 场景 -->
+        <div class="scene">
+            <img src="./assets/img/bg1.jpg" alt="">
+            <p>现代</p>
+          </div>
+          <div class="scene">
+            <img src="./assets/img/bg2.jpg" alt="">
+            <p>怀旧</p>
+          </div>
+          <div class="scene">
+
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
