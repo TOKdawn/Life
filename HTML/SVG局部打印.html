@@ -13,17 +13,21 @@
 <body>
     <div class="head">
         <button onclick="printSVG.printPart('SVGDom')"> 打印 </button>
-        <button onclick="printSVG.clip()"> 截取</button>
+        <button onclick="printSVG.clip()"> 获取</button>
         <button onclick="printSVG.boxLayout()"> 创建</button>
+        <!-- <button onclick="printSVG.SVGclip()"> 裁剪</button> -->
+        <!-- <button onclick="printSVG.removeSVGclip()"> 取消</button> -->
+
     </div>
+
     <div id="bigBox">
-        <div id="SVGDom" style="width: 1007px; height: 1710px; top: 0px; left:0px;">
+        <div id="SVGDom" style=" top: 0px; left:0px;">
             <?xml version="1.0" standalone="no"?>
             <?xml-stylesheet type="text/css" href="https://www.processon.com/themes/default/mind/icons/icons.css" ?>
             <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xlink="http://www.w3.org/1999/xlink" id="mind-svg-con"
                 width="100%" height="100%"
-                style=" right:0px; left: 0px; margin: auto; top: 0px; width: 100%; height: 100%; background: rgb(248, 248, 248); z-index: 1;">
+                style=" right:0px; left: 0px; margin: auto; top: 0px; width:1007.36328125px; height:1710px; background: rgb(248, 248, 248); z-index: 1;">
 
                 <rect x="0" y="0" width="1007.36328125" height="1710" fill="#f8f8f8"></rect>
                 <defs>
@@ -1021,6 +1025,9 @@
                 <g></g>
             </svg>
         </div>
+        <div class="res">
+
+        </div>
     </div>
 </body>
 <style>
@@ -1041,25 +1048,35 @@
     }
 
     #bigBox {
-        width: 3000px;
-        height: 3000px;
+   margin: 200px;
+        width: 2000px;
+        height: 2000px;
         position: relative;
         background-attachment: fixed !important;
         transition: all 200ms;
         display: block;
-        transform:scale(.8)
+        transform:scale(1);
+        /* overflow:scroll */
     }
     #SVGDom{
         display: block;
         position:absolute;
     }
+    .res{
+    display: block;
+    position: relative;
+    top: 2500px;
+    }
 </style>
 <script>
     var printSVG = {
-        svgX: '',
-        svgY: '',
-        svgW: '',
-        svgH: '',
+        SVG:{
+            X: '',
+            Y: '',
+            W: '',
+            H: '',
+        },
+        draw : SVG('#mind-svg-con'),
         boxType: '', //across or vertical
         paperType: 'A4',
         paperSize:{
@@ -1068,18 +1085,17 @@
                 H:842,
             }
         },
-        boxData:[[],[],[],[],[],[],[],[],[],[],[]], // 二维数组
+        boxData:{}, // 二维数组
         boxHeap:[], 
         init: function () {
             var DPI = this.js_getDPI();
             console.log('DPI-X:', DPI[0], 'DPI-Y:', DPI[1]);
-            printSVG.svgW  = $('#SVGDom').width(); 
-            printSVG.svgH  = $('#SVGDom').height(); 
-            printSVG.svgX = $('#SVGDom').offset().left;
-            printSVG.svgY = $('#SVGDom').offset().top;
-            !this.boxType && (this.boxType = this.svgW > this.svgH ? 'across' : 'vertical')
-            console.log('svgX:',this.svgX,'svgY:',this.svgY,'svgW',this.svgW,'svgH',this.svgH);
-
+            printSVG.SVG.W  = $('#SVGDom').width(); 
+            printSVG.SVG.H  = $('#SVGDom').height(); 
+            printSVG.SVG.X = $('#SVGDom').offset().left;
+            printSVG.SVG.Y = $('#SVGDom').offset().top;
+            !this.boxType && (this.boxType = this.SVG.W > this.SVG.H ? 'across' : 'vertical')
+            console.log('SVG:','X:',this.SVG.X,'Y:',this.SVG.Y,'W',this.SVG.W,'H',this.SVG.H);
         },
         drawButton:function(node){
             
@@ -1097,7 +1113,6 @@
                 div.style.backgroundColor = 'rgba(36,153,249,0.1)';
                 div.style.border = '1px solid #2499f9 ';
                 div.onclick  = this.active;
-                
                 return div;
             };
             function BoxObj(location){
@@ -1107,7 +1122,6 @@
                 this.X = location.X+'px';
                 this.Y = location.Y+'px';
                 this.active = function(){
-                    console.log('svgX:',this.X,'svgY:',this.Y,'svgW',this.W,'svgH',this.H);
                 };
                 this.onDragStart = function(){
 
@@ -1125,26 +1139,24 @@
             $('#bigBox').append(node);
         },
         boxLayout: function(){
-            debugger
             var location = printSVG.boxType == 'vertical' ? { 'W': printSVG.paperSize[printSVG.paperType].W , 'H': printSVG.paperSize[printSVG.paperType].H } : { 'W': printSVG.paperSize[printSVG.paperType].H , 'H': printSVG.paperSize[printSVG.paperType].W };
-            var boxNumForX = parseInt(printSVG.svgW / location.W) + 1
-            var boxExcursionX = (location.W -  printSVG.svgW % location.W  ) / 2;
-            var boxNumForY = parseInt(printSVG.svgH / location.H) + 1
-            var boxExcursionY = (location.H -  printSVG.svgH % location.H  ) / 2;
-
+            var boxNumForX = parseInt(printSVG.SVG.W / location.W) + 1
+            var boxExcursionX = (location.W -  printSVG.SVG.W % location.W  ) / 2;
+            var boxNumForY = parseInt(printSVG.SVG.H / location.H) + 1
+            var boxExcursionY = (location.H -  printSVG.SVG.H % location.H  ) / 2;
             for(var i = 0; i<boxNumForX; i++){
-                location.X =   i * location.W - boxExcursionX;
+                location.X = i * location.W - boxExcursionX;
                 for(var j = 0; j<boxNumForY;j++){
-                    location.Y =   + j * location.H - boxExcursionY;
-                    printSVG.boxData[i][j] = 'box'+i+j;
-                    printSVG.drawBox(location, printSVG.boxData[i][j])
-                    console.log($('#'+'box'+i+j).offset(), 'father:',$('#SVGDom').offset())
-                    // .attr('id','myDivId_new');
+                    location.Y = j * location.H - boxExcursionY;
+                    printSVG.boxData['box'+i+j] = {
+                        W: location.W,
+                        H: location.H,
+                        X: location.X + printSVG.SVG.X,
+                        Y:location.Y + printSVG.SVG.Y,
+                    };
+                    printSVG.drawBox(location, 'box'+i+j);
                 }
-
             }
-            
-
         },
         js_getDPI: function() {  //获取DPI
                 var arrDPI = new Array();
@@ -1163,21 +1175,55 @@
                 return arrDPI;
             },
         clip: function () { //裁剪SVG
+            for(var id in printSVG.boxData){
+               var  Rectangle = printSVG.RectangleOverlap(printSVG.boxData[id],printSVG.SVG);
+               printSVG.SVGclip(Rectangle);
+               printSVG.renderRes(printSVG.boxData[id],printSVG.SVG);
+
+            }     
+        },
+        SVGclip:function(REClocation){
+            var ellipse = printSVG.draw.rect(REClocation.W, REClocation.H).move(REClocation.X - printSVG.SVG.X , REClocation.Y - printSVG.SVG.Y);
+            var clip =  printSVG.draw.clip().add(ellipse);
+            printSVG.draw.clipWith(clip);
+            
+        },
+        removeSVGclip: function(){
             var draw = SVG('#mind-svg-con');
-            var JQSVG = $(SVG)
-            var ellipse = draw.rect(595, 842).move(0, 0);
+            var ellipse = draw.rect(1000, 1710).move(0, 0);
             var clip = draw.clip().add(ellipse);
             draw.clipWith(clip);
         },
-        isRectangleOverlap: function (rec1, rec2) {
-            var Xstart = Math.max(rec1[0], rec2[0]); //A矩形的xStart和B矩形的Xstart 大的值
-            var Xend = Math.min(rec1[2], rec2[2]); //A矩形的xend和B矩形的Xend 小的值
-            var Ystart = Math.max(rec1[1], rec2[1]) //A矩形的YStart和B矩形的Ystart 大的值 
-            var Yend = Math.min(rec1[3], rec2[3]) //A矩形的Yend和B矩形的Yend 小的值 
-            if (Xstart < Xend && Ystart < Yend) {
-                return true
+        RectangleOverlap: function (rec1, rec2) {
+            var Xstart = Math.max(rec1.X, rec2.X); //A矩形的xStart和B矩形的Xstart 大的值
+            var Xend = Math.min(rec1.X+rec1.W, rec2.X+rec2.W); //A矩形的xend和B矩形的Xend 小的值
+            var Ystart = Math.max(rec1.Y, rec2.Y) //A矩形的YStart和B矩形的Ystart 大的值 
+            var Yend = Math.min(rec1.Y+rec1.H, rec2.Y+rec2.H) //A矩形的Yend和B矩形的Yend 小的值 
+            return {
+                X:Xstart,
+                Y:Ystart,
+                W:Xend - Xstart,
+                H:Yend - Ystart
             }
-            return false
+        },
+        renderRes:function(Box,SVG){ // Box是渲染出来的蓝色框.   SVG为原来的SVG
+            var div = $("<div></div>");
+                div.css({
+                    'position': 'relative',
+                    'width': Box.W,
+                    'height': Box.H,
+                    'backgroundColor': 'rgba(36,153,249,0.1)',
+                    'border':'1px solid red',
+                    'overflow':'hidden'
+                })
+           var  SVGDom = $('#SVGDom').clone();
+           SVGDom.css({
+            'position': 'relative',
+            'left' : SVG.X - Box.X,
+            'top': SVG.Y  - Box.Y
+           })
+            div.append(SVGDom);
+            $('.res').append(div);
         },
         printPart: function (idstr) { //idstr 要打印内容中的id
             // debugger
@@ -1190,7 +1236,7 @@
             var SVGDom = el.innerHTML;
             // debugger
             // SVGDom.css('background-color','#fff')
-            doc.write('<div style="relative; left:0px;top:0px; width:1190px;  height:1684px" >' + SVGDom +
+            doc.write('<div style="relative; left:0px;top:0px; width:1190px;  height:1684px">' + SVGDom +
                 '</div>');
             // doc.write('<div style="position:absolute; left:0px;top:1123px;" >' + el.innerHTML + '</div>');
             doc.body.setAttribute('style', 'margin:0px; padding:0px;')
