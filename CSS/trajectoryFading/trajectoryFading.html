@@ -33,6 +33,20 @@
     *
     *
     */
+    var convertBST = function(root) {
+    let sum = 0;
+    function help(root) {
+        if (root !== null) {
+            help(root.right);
+            sum += root.val;
+            root.val = sum;
+            help(root.left);
+        }
+        return root;
+    }
+    help(root);
+    return root;
+};
 
     var DATA = {
         '0':[

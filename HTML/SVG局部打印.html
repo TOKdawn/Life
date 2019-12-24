@@ -44,10 +44,11 @@
         width: 100%;
         background-color: #f0f;
         position: fixed;
+        
     }
 
     #bigBox {
-   margin: 200px;
+    margin: 800px;
         width: 2000px;
         height: 2000px;
         position: relative;
@@ -62,16 +63,13 @@
         position:absolute;
     }
     .res{
-    display: block;
-    position: relative;
-    top: 2500px;
+        display: block;
+        position: relative;
+        top: 2500px;
     }
 </style>
 <script>
-    var printSVG = {
-        // X Y做标轴以SVG的offset值为标准建立,其他元素都跟offset做相对位置比较,然后加上SVG的XY计算对应坐标值,
-        // 在页面渲染上SVG可以随意改变CSS top和left,而其他元素的top left值都是应当是相对与svg定位,即top = 0 left = 0时元素跟SVG对齐
-         
+    var printSVG = {   
         SVG:{
             X: '',
             Y: '',
@@ -83,8 +81,15 @@
         paperType: 'A4',
         paperSize:{
             'A4':{
-                W:1176,
-                H:1670,
+                // W:1135,
+                // H:1616,
+                   W:562,
+                // W:542,
+                    H:808,
+            },
+            'A3':{
+                W:1684,
+                H:2382,
             }
         },
         boxData:{}, // 二维数组 box的 XY轴定位由box的相对定位(top,left)加上SVG的offset值求得
@@ -101,8 +106,8 @@
             printSVG.SVG.H  = $('#SVGDom').height(); 
             printSVG.SVG.X = $('#SVGDom').offset().left;
             printSVG.SVG.Y = $('#SVGDom').offset().top;
-            !this.boxType && (this.boxType = this.SVG.W > this.SVG.H ? 'across' : 'vertical')
-            console.log('SVG:','X:',this.SVG.X,'Y:',this.SVG.Y,'W',this.SVG.W,'H',this.SVG.H);
+            !this.boxType && (this.boxType = this.SVG.W > this.SVG.H ? 'across' : 'vertical') //确认纸型
+            // console.log('SVG:','X:',this.SVG.X,'Y:',this.SVG.Y,'W',this.SVG.W,'H',this.SVG.H);
         },
         drawBox: function(location,id){
             function DomBox(){
@@ -217,7 +222,6 @@
                 })
             }
         },
-
         clearBox: function(){
             for(var id in printSVG.boxData){
                 delete printSVG.boxData[id];
@@ -233,10 +237,10 @@
         },
         boxLayout: function(){ //裁剪框初始布局
             var location = printSVG.boxType == 'vertical' ? { 'W': printSVG.paperSize[printSVG.paperType].W , 'H': printSVG.paperSize[printSVG.paperType].H } : { 'W': printSVG.paperSize[printSVG.paperType].H , 'H': printSVG.paperSize[printSVG.paperType].W };
-            var boxNumForX = parseInt(printSVG.SVG.W / location.W) + 1
-            var boxExcursionX = (location.W -  printSVG.SVG.W % location.W  ) / 2;
-            var boxNumForY = parseInt(printSVG.SVG.H / location.H) + 1
-            var boxExcursionY = (location.H -  printSVG.SVG.H % location.H  ) / 2;
+            var boxNumForX = Math.ceil(printSVG.SVG.W / location.W)
+            var boxExcursionX = printSVG.SVG.W % location.W ? (location.W -  printSVG.SVG.W % location.W  ) / 2 : 0;
+            var boxNumForY = Math.ceil(printSVG.SVG.H / location.H)
+            var boxExcursionY = printSVG.SVG.H % location.H ?  (location.H -  printSVG.SVG.H % location.H  ) / 2 : 0;
             for(var i = 0; i<boxNumForX; i++){
                 location.X = i * location.W - boxExcursionX;
                 for(var j = 0; j<boxNumForY;j++){
@@ -244,10 +248,10 @@
                     printSVG.boxData['box'+i+j] = {
                         W: location.W,
                         H: location.H,
-                        X: location.X + printSVG.SVG.X,
+                        X: location.X + printSVG.SVG.X, // location其实是相对于SVG的偏移量而不是绝对的top left定位
                         Y: location.Y + printSVG.SVG.Y,
                     };
-                    printSVG.drawBox(location, 'box'+i+j);
+                    printSVG.drawBox(location,'box'+i+j);
                 }
             }
             printSVG.sortBox()
@@ -315,7 +319,10 @@
                     'height': Box.H+10,
                     'backgroundColor': bg,
                     'overflow':'hidden',
-                    'padding': '10px'
+                    'padding': '25px',
+                    // 'outline' : '1px red solid'
+                    // 'transform-origin': '0 0 0',
+                    // 'transform': 'scale(2)'
                 })
            var  SVGDom = $('#SVGDom').clone();
            SVGDom.css({
@@ -328,28 +335,24 @@
             // $('.res').append(div);
         },
 
-        // printPart: function (idstr) { //idstr 要打印内容中的id
-        //     // debugger
-        //     var el = document.getElementById(idstr);
-        //     var iframe = document.createElement('IFRAME');
-        //     var doc = null;
-        //     iframe.setAttribute('style', 'position:absolute;width:0px;height:0px;left:0px;top:0px;');
-        //     document.body.appendChild(iframe);
-        //     doc = iframe.contentWindow.document;
-        //     var SVGDom = el.innerHTML;
-        //     // SVGDom.css('background-color','#f0f')
-        //     doc.write('<div style="relative; left:0px;top:0px; width:1190px;  height:1684px">' + SVGDom +
-        //         '</div>');
-        //     // doc.write('<div style="position:absolute; left:0px;top:1123px;" >' + el.innerHTML + '</div>');
-        //     doc.body.setAttribute('style', 'margin:0px; padding:0px;')
-        //     doc.close();
-        //     iframe.contentWindow.focus();
-        //     iframe.contentWindow.print();
-        //     if (navigator.userAgent.indexOf("MSIE") > 0) { // 对于IE一下移除iframe
-        //         document.body.removeChild(iframe);
-        //     }
-        //     document.body.removeChild(iframe);
-        // }
+        printPart: function (idstr) { //idstr 要打印内容中的id
+            var el = document.getElementById(idstr);
+            var iframe = document.createElement('IFRAME');
+            var doc = null;
+            iframe.setAttribute('style', 'position:absolute;width:0px;height:0px;left:0px;top:0px;');
+            document.body.appendChild(iframe);
+            doc = iframe.contentWindow.document;
+            var SVGDom = el.innerHTML;
+            doc.write('<div style="position:absolute; left:0px;top:1123px;" >' + el.innerHTML + '</div>');
+            doc.body.setAttribute('style', 'margin:0px; padding:0px;')
+            doc.close();
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+            if (navigator.userAgent.indexOf("MSIE") > 0) { // 对于IE一下移除iframe
+                document.body.removeChild(iframe);
+            }
+            document.body.removeChild(iframe);
+        }
     }
     window.onload = function () {
         printSVG.init()

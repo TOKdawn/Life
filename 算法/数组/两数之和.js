@@ -1,4 +1,5 @@
 //[ 两数之和](https://leetcode-cn.com/problems/two-sum/)
+// 遍历同时做反向索引
 var twoSum = function(nums, target) {
 	let Arrlength = nums.length;
 	let elementToIndex = []
