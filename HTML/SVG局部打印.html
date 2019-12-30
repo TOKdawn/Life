@@ -66,6 +66,7 @@
         display: block;
         position: relative;
         top: 2500px;
+       
     }
 </style>
 <script>
@@ -81,11 +82,8 @@
         paperType: 'A4',
         paperSize:{
             'A4':{
-                // W:1135,
-                // H:1616,
-                   W:562,
-                // W:542,
-                    H:808,
+                W:1164,
+                H:1646,
             },
             'A3':{
                 W:1684,
@@ -100,8 +98,6 @@
             target:''
         },
         init: function () {
-            var DPI = this.js_getDPI();
-            console.log('DPI-X:', DPI[0], 'DPI-Y:', DPI[1]);
             printSVG.SVG.W  = $('#SVGDom').width(); 
             printSVG.SVG.H  = $('#SVGDom').height(); 
             printSVG.SVG.X = $('#SVGDom').offset().left;
@@ -122,6 +118,7 @@
                 div.style.backgroundColor = 'rgba(36,153,249,0.1)';
                 div.style.zIndex = '5';
                 div.style.border = '1px solid #2499f9 ';
+                div.style.cursor = 'move';
                 div.onmousedown = this.onDragStart;
                 div.mousemove = this.onDragMove;
                 div.mouseup = this.onDragEnd;
@@ -156,10 +153,10 @@
                     'text-align': 'center',
                     'font-weight': '600',
                     'font-size': '20px',
+                    'cursor':'pointer'
                 })
                 close.on('click',function(){
                     var id = $(this).parent().attr('id')
-                    debugger
                      delete printSVG.boxData[id];
                     $("#"+id).remove();
                     printSVG.sortBox()
@@ -168,7 +165,6 @@
                 return div;
             };
             function BoxObj(location){
-                // console.log('location:',location)
                 this.W = location.W+'px';
                 this.H = location.H+'px';
                 this.X = location.X+'px';
@@ -256,22 +252,6 @@
             }
             printSVG.sortBox()
         },
-        js_getDPI: function() {  //获取DPI
-                var arrDPI = new Array();
-                if (window.screen.deviceXDPI != undefined) {
-                    arrDPI[0] = window.screen.deviceXDPI;
-                    arrDPI[1] = window.screen.deviceYDPI;
-                } else {
-                    var tmpNode = document.createElement("DIV");
-                    tmpNode.style.cssText =
-                        "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
-                    document.body.appendChild(tmpNode);
-                    arrDPI[0] = parseInt(tmpNode.offsetWidth);
-                    arrDPI[1] = parseInt(tmpNode.offsetHeight);
-                    tmpNode.parentNode.removeChild(tmpNode);
-                }
-                return arrDPI;
-            },
         printSVG: function () { //打印SVG
             var iframe = document.createElement('IFRAME');
             var doc = null;
@@ -315,14 +295,12 @@
             var div = $("<div></div>");
                 div.css({
                     'position': 'relative',
-                    'width': Box.W+10,
-                    'height': Box.H+10,
+                    'width': Box.W,
+                    'height': Box.H,
                     'backgroundColor': bg,
                     'overflow':'hidden',
-                    'padding': '25px',
-                    // 'outline' : '1px red solid'
-                    // 'transform-origin': '0 0 0',
-                    // 'transform': 'scale(2)'
+                    // 'padding': '25px',
+                    // 'outline': '1px red solid'
                 })
            var  SVGDom = $('#SVGDom').clone();
            SVGDom.css({
@@ -334,7 +312,6 @@
             $("iframe")[0].contentWindow.document.body.append(div[0]);
             // $('.res').append(div);
         },
-
         printPart: function (idstr) { //idstr 要打印内容中的id
             var el = document.getElementById(idstr);
             var iframe = document.createElement('IFRAME');
@@ -356,9 +333,7 @@
     }
     window.onload = function () {
         printSVG.init()
-      
     }
-
 </script>
 
 </html>`
