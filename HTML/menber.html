@@ -1,0 +1,65 @@
+var generate = function (num) {
+    var AA = {
+        1:'I',
+        2:'II',
+        3:'II',
+        4:'IV',
+        5:'V',
+        6:'VI',
+        7:'VII',
+        8:'VII',
+        9:'IX',
+    }
+    var BB = {
+        1:'X',
+        2:'XX',
+        3:'XXX',
+        4:'XL',
+        5:'L',
+        6:'LX',
+        7:'LXX',
+        8:'LXXX',
+        9:'XC',
+        0:''
+    }
+    var CC = {
+        1:'C',
+        2:'CC',
+        3:'CCC',
+        4:'CD',
+        5:'D',
+        6:'DC',
+        7:'DCC',
+        8:'DCCC',
+        9:'CM',
+        0:''
+    }
+    var DD = {
+        1:'M',
+        2:'MM',
+        3:'MMM',
+        4:'MV',
+        5:'V',
+        6:'VM',
+        7:'VMM',
+        8:'VMMM',
+        9:'CM',
+        0:''
+    }
+    num+=''
+    var res = ''
+    switch(num){
+        case 1: 
+        res += AA[num[0]]
+        break;
+        case 2:
+        res+= BB[num[0]] +  AA[num[1]]
+        break;
+        case 3:
+        res+= CC[num[0]] +  BB[num[1]]+AA[num[2]]
+        break;
+        default:
+        res+= DD[num[0]]+ CC[num[1]] +  BB[num[2]]+AA[num[3]]
+    }
+    return res
+};

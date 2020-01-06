@@ -12,7 +12,6 @@
 
 <body>
     <div class="head">
-        <button onclick="printSVG.printPart('SVGDom')"> 打印 </button>
         <button onclick="printSVG.printSVG()"> 获取</button>
         <button onclick="printSVG.boxLayout()"> 创建</button>
         <button onclick="printSVG.clearBox()"> 删除</button>
@@ -82,8 +81,8 @@
         paperType: 'A4',
         paperSize:{
             'A4':{
-                W:1164,
-                H:1646,
+                W:1164-50,
+                H:1644-50,
             },
             'A3':{
                 W:1684,
@@ -103,12 +102,9 @@
             printSVG.SVG.X = $('#SVGDom').offset().left;
             printSVG.SVG.Y = $('#SVGDom').offset().top;
             !this.boxType && (this.boxType = this.SVG.W > this.SVG.H ? 'across' : 'vertical') //确认纸型
-            // console.log('SVG:','X:',this.SVG.X,'Y:',this.SVG.Y,'W',this.SVG.W,'H',this.SVG.H);
         },
         drawBox: function(location,id){
             function DomBox(){
-                // bg-c  rgba(36,153,249,0.1)  --> rgba(36,153,249,0.2);
-                //   1px solid #2499f9 
                 var div = document.createElement("div");
                 div.style.position = 'absolute'
                 div.style.width = this.W;
@@ -182,7 +178,6 @@
                     printSVG.drag.target = $(this).attr('id');
                     printSVG.drag.diffY = e.clientY - $(this).css('top').slice(0,-2);
                     printSVG.drag.diffX = e.clientX - $(this).css('left').slice(0,-2);
-                    console.log('drag start', e.clientX, 'Box:',$(this).css('left').slice(0,-2))
                     $(document).bind("mousemove",printSVG.onDragMove);
                     $(document).bind("mouseup",printSVG.onDragEnd);
                 };
@@ -195,7 +190,6 @@
         },
         onDragMove : function(){
                     var e = event || window.event;
-                    // console.log('drag move',e.clientX,'Box:', e.clientX - printSVG.drag.diffX )
                     if(printSVG.drag.target){
                         $('#'+printSVG.drag.target).css({
                             'left': (e.clientX - printSVG.drag.diffX ) + "px",
@@ -203,10 +197,33 @@
                         })
                         printSVG.boxData[printSVG.drag.target].X = printSVG.SVG.X + (e.clientX - printSVG.drag.diffX );
                         printSVG.boxData[printSVG.drag.target].Y = printSVG.SVG.Y + (e.clientY - printSVG.drag.diffY );
-                        console.log(printSVG.boxData[printSVG.drag.target])
                     }
                 },
         onDragEnd : function(){
+                    var X  = printSVG.boxData[printSVG.drag.target].X,Y = printSVG.boxData[printSVG.drag.target].Y
+                    debugger
+                    for(var id in printSVG.boxData){
+                        if(id != printSVG.drag.target){
+                            if(Math.abs(printSVG.boxData[id].X - X) < 20){
+                                X = printSVG.boxData[id].X
+                            }
+                            if( Math.abs(printSVG.boxData[id].Y - Y) < 20){
+                                Y = printSVG.boxData[id].Y
+                            }
+                            if(Math.abs(X + printSVG.boxData[id].W - printSVG.boxData[id].X ) < 20) {
+                                X = printSVG.boxData[id].X  - printSVG.boxData[id].W 
+                            }
+                            if(Math.abs(Y + printSVG.boxData[id].H - printSVG.boxData[id].Y ) < 20) {
+                                Y = printSVG.boxData[id].Y  - printSVG.boxData[id].H
+                            }
+                        }
+                    }
+                    printSVG.boxData[printSVG.drag.target].X = X
+                    printSVG.boxData[printSVG.drag.target].Y = Y
+                    $('#'+printSVG.drag.target).css({
+                            'left': + X - printSVG.SVG.X + "px",
+                            'top': + Y - printSVG.SVG.Y + "px",
+                    })
                     printSVG.drag.target = '';
                     $(document).unbind("mousemove mouseup");
                 },
@@ -295,12 +312,11 @@
             var div = $("<div></div>");
                 div.css({
                     'position': 'relative',
-                    'width': Box.W,
-                    'height': Box.H,
+                    'width': Box.W+50,
+                    'height': Box.H+50,
                     'backgroundColor': bg,
                     'overflow':'hidden',
-                    // 'padding': '25px',
-                    // 'outline': '1px red solid'
+                    'padding': '25px',
                 })
            var  SVGDom = $('#SVGDom').clone();
            SVGDom.css({
