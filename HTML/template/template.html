@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+
   <link rel="stylesheet" href="./css/template.css">
-  <script src="./js/template.js"></script>
+  <link rel="stylesheet" href="./css/global.css">
+  <script src="./js/jquery.js" charset="UTF-8" type="text/javascript"></script>
+  <script src="./js/template.js" charset="UTF-8" type="text/javascript"></script>
+  <script src="./js/util.js" charset="UTF-8" type="text/javascript"></script>
 </head>
 <body class="template">
   <header>
@@ -52,11 +56,10 @@
       </div>
       <div id="common_list">
         <div class="new-template">
-          
           新建空白流程图
         </div>
-        <div class="template-type-one">
-          <img src="http://www.dawninshadow.com/usr/uploads/2020/01/2139417577.png" alt="">
+        <div class="template-type-time">
+          <img class="template-img" src="http://www.dawninshadow.com/usr/uploads/2020/01/2139417577.png" alt="">
           <div class="template-info">
             <p class="T-title">数据流</p>
             <div class="T-time">两小时前</div>
@@ -64,10 +67,31 @@
         </div>
       </div>
       <div id="title_list"> 
-
+        <div class="title active">精选模板</div>
+        <div class="title">模板推荐</div>
+        <div class="title">行业热门</div>
       </div>
       <div id="template_list">
-
+        <div class="template-row">
+            <div class="template-class">
+                <div class="title" >流程图</div>
+                <div class="intro">通过信息流直观说明某一过程,如何制作标准流程图</div>
+                <div class="template-class-button"> 
+                    更多 >
+                </div>
+            </div>
+            <div class="template-type-easy">
+                <img class="template-img" src="http://www.dawninshadow.com/usr/uploads/2020/01/2139417577.png" alt="">
+                <div class="T-title">时间轴</div>
+            </div>
+            <div class="template-type-more">
+                <img class="template-img" src="http://www.dawninshadow.com/usr/uploads/2020/01/2139417577.png" alt="">
+                <div class="template-info">
+                    <p class="T-title">数据流</p>
+                    <div class="T-info">674k 34k</div>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,5 @@
+var template = {
+    showDialog: function(){
+        
+    }
+}
