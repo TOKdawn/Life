@@ -108,6 +108,7 @@ li{
 }
 #nav_list li:hover{
   background-color: #eee;
+  border-radius: 5px;
 }
 .template .main .title{
   font-size: 16px;
