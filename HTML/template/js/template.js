@@ -41,5 +41,8 @@ var template = {
       var html = '<span>'+ template.navList[i].name+'</span>';
       
     }
+  },
+  showDialog: function(){
+    $("#template_info_dialog")
   }
 }

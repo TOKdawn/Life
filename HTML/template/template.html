@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="./css/template.css">
   <link rel="stylesheet" href="./css/global.css">
   <script src="./js/jquery.js" charset="UTF-8" type="text/javascript"></script>
-  <script src="./js/template.js" charset="UTF-8" type="text/javascript"></script>
+  <script src="./js/template.js" charset="UTF-8" type="text/javas   cript"></script>
   <script src="./js/util.js" charset="UTF-8" type="text/javascript"></script>
 </head>
 <body class="template">
   <header>
-    <span class="header-active">流程图</span>
+    <span class="header-active" onclick="template.showDialog">流程图</span>
     <span>思维导图</span>
     <span>我的模板</span>
   </header>
@@ -95,5 +95,46 @@
       </div>
     </div>
   </div>
+  <div class="mask">
+
+  </div>
+  <div id="template_info_dialog"  class="template-dialog">
+      <div class="dialog-switch">
+        <div class="switch-button">
+            <span class="iconfont">&#xe696;</span>
+        </div>
+      </div>
+      <div class="dialog-body">
+          <div>
+              <div class="thumbanail">
+      
+              </div>
+              <div class="info">
+                  <h3>数据流</h3>
+                  <div class="icon-bar"> 
+                    
+                  </div>
+                  <div class="type-bar">
+                      <span> #管理</span>     
+                  </div>
+                  <div class="intro">公司发展历程，使用数据流展示，这是 一段详情描述,占位表示，最多显示3行 超过3行用省略号表示省略号表示表... </div>
+                  <div class="clone-button">立刻克隆</div>
+                  <div class="star-button">  </div>
+              </div>
+          </div>
+          <div class="recommend">
+              <h4>为您推荐</h4>
+              <ul >
+      
+              </ul>
+          </div>
+      </div>
+      <div class="dialog-switch">
+        <div class="switch-button">
+            <span class="iconfont">&#xe696;</span>
+        </div>
+      </div>
+</div>
+
 </body>
 </html>
