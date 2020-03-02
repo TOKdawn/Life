@@ -1,64 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
+
 <body>
-  <button onclick="sss()">hhh</button>
+    <button onclick="sss()">hhh</button>
 </body>
-<script >
-function sss() {
-  console.log('ssss')
-  var watchedVideosByFriends = function(watchedVideos, friends, id, level) {
-    var arrId = new Array(101).fill(0)
-    var obj = {}
-    var friendMap = friends[id]
-    var newMap = []
+<script>
+    function sss() {
+        console.log('ssss')
+        var watchedVideosByFriends = function (watchedVideos, friends, id, level) {
+            var arrId = new Array(101).fill(0)
+            var obj = {}
+            var friendMap = friends[id]
+            var newMap = []
 
-    for(var i=1;i<level;i++){
-      newMap = [];
-      friendMap.map(item => {
-        newMap.push(...friends[item])
-      })
-      friendMap = newMap;
-    }
-    friendMap.map(item => {
-      arrId[item]++
-    })
-    var friendRes = []
-  
-    for(var i = 0;i<101;i++){
-      if(arrId[i]>0){
-        friendRes.push(i)
-      }
-    }
-    console.log(friendRes);
-    friendRes.map(item =>{
-      watchedVideos[item].map(value =>{
-          if(obj.hasOwnProperty(value)){
-            obj[value]++
-          }else{
-            obj[value] = 1
-          }
-      })
-    })
-    debugger
-    let keysSorted = Object.keys(obj).sort(function(a,b){ 
-      if(obj[b] == obj[a]){
-        return 
-      }
-       return obj[a]-obj[b]
-      }) 
-    return keysSorted
-  };
+            for (var i = 1; i < level; i++) {
+                newMap = [];
+                friendMap.map(item => {
+                    newMap.push(...friends[item])
+                })
+                friendMap = newMap;
+            }
+            friendMap.map(item => {
+                arrId[item]++
+            })
+            var friendRes = []
 
-  watchedVideosByFriends( [["A","B"],["C"],["B","C"],["D"]],
-[[1,2],[0,3],[0,3],[1,2]],
-0,
-2,)
-}
+            for (var i = 0; i < 101; i++) {
+                if (arrId[i] > 0) {
+                    friendRes.push(i)
+                }
+            }
+            console.log(friendRes);
+            friendRes.map(item => {
+                watchedVideos[item].map(value => {
+                    if (obj.hasOwnProperty(value)) {
+                        obj[value]++
+                    } else {
+                        obj[value] = 1
+                    }
+                })
+            })
+            debugger
+
+            let keysSorted = Object.keys(obj).sort(function (a, b) {
+                if (obj[b] == obj[a]) {
+                    if (a > b) {
+                        return 1
+                    } else {
+                        return -1
+                    }
+                }
+                return obj[a] - obj[b]
+            })
+            return keysSorted
+        };
+
+        watchedVideosByFriends([
+                ["A", "B"],
+                ["C"],
+                ["B", "C"],
+                ["D"]
+            ],
+            [
+                [1, 2],
+                [0, 3],
+                [0, 3],
+                [1, 2]
+            ],
+            0,
+            2, )
+    }
 </script>
+
 </html>
