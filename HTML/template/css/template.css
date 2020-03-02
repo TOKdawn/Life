@@ -1,0 +1,240 @@
+
+@font-face {
+    font-family: 'iconfont';  /* project id 1435567 */
+    src: url('//at.alicdn.com/t/font_1435567_ddb4w8twln.eot');
+    src: url('//at.alicdn.com/t/font_1435567_ddb4w8twln.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1435567_ddb4w8twln.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1435567_ddb4w8twln.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1435567_ddb4w8twln.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1435567_ddb4w8twln.svg#iconfont') format('svg');
+  }
+html,body{
+  margin: 0px;
+  padding: 0px;
+  font-size: 13px;
+  color: #2a2a2a;
+}
+ul{
+  padding-left: 20px;
+}
+
+li{
+  list-style:none;
+}
+
+.template{
+  background-color: #fff;
+}
+.template header{
+  height:50px;
+  line-height: 50px;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 0px 10px 0px rgba(220,220,220,1);
+  text-align: center;
+}
+.template header span{
+  margin:0px 10px;
+  cursor: pointer;
+  
+}
+.template header span:hover{
+  color:#4386F5;
+}
+
+.template header .header-active{
+  padding: 5px 12px;
+  color: #fff;
+  background:#4386F5;
+  border-radius:15px;
+}
+.template header .header-active:hover{
+  color: #f7f7f7;
+}
+.template-body{
+  display: flex;
+  min-width: 960px;
+}
+.template-body aside{
+  flex: 0 0 300px;
+  padding: 30px 20px;
+}
+.template-body .main{
+  flex: 1 1 auto;
+  padding: 30px 20px;
+}
+.template-body aside {
+  outline: 1px red solid;
+}
+.template-body aside .title{
+  font-size: 16px;
+  width: 250px;
+  font-weight: 800;
+  color: #2a2a2a;
+  padding:  0px 5px 10px ;
+  border-bottom: 1px solid #f0f0f0;
+}
+.template-body .basic {
+  padding:20px 0px 0px;
+}
+.template-body .basic span{
+  color: #999;
+  font-size: 13px;
+  
+}
+#nav_list span{
+  color: #999;
+  font-size: 13px;
+  padding:30px 5px 10px;
+}
+.basic li{
+  line-height: 25px;
+  color: #2a2a2a;
+  cursor: pointer;
+  padding-left: 10px;
+  width: 200px;
+}
+.basic li:hover{
+  background-color: #eee;
+}
+#nav_list ul{
+  display: flex;
+  max-width: 150px;
+}
+#nav_list li{
+  flex: 0 0 auto;
+  padding: 5px 5px;
+  color: #2a2a2a;
+  cursor: pointer;
+}
+#nav_list li:hover{
+  background-color: #eee;
+  border-radius: 5px;
+}
+.template .main .title{
+  font-size: 16px;
+  width: 250px;
+  font-weight: 800;
+  color: #2a2a2a;
+  padding:  0px 5px 10px ;
+  
+}
+.template #common_list{
+  display: flex;
+  height: 250px;
+  outline: green 1px solid;
+}
+#common_list .new-template{
+  flex: 0 0 200px;
+  height: 200px;
+  margin: 0px 5px;
+  border: 1px solid #DADCE0;
+  line-height: 200px;
+  text-align: center;
+}
+.template-type-easy, .template-type-more, .template-type-time{
+  flex: 0 0 200px;
+  margin: 0px 10px;
+  height: 230px;
+
+}
+.template-img{
+  height: 200px;
+  border: 1px solid #DADCE0;
+  width: 200px;
+}
+.template-info{
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+}
+.T-title{
+  flex: 0 0 auto;
+  margin: 0px;
+}
+.T-time{
+  flex: 1 1 auto;
+  text-align: right;
+  color: #999;
+  font-size: 12px;
+}
+
+.T-info{
+    flex: 1 1 auto;
+    text-align: right;
+    color: #999;
+    font-size: 12px;
+}
+
+#title_list {
+    display: flex;
+}
+#title_list .title{
+    font-size: 16px;
+    font-weight: 800;
+    flex: 0 0 70px;
+}
+#title_list .active{
+    color:#4386F5;
+}
+#template_list{
+    margin-top: 10px;
+    display: flex;
+}
+#template_list .template-class{
+    height: 180px;
+    border: 1px solid #DADCE0;
+    width: 180px;
+    padding: 10px;
+    flex: 0 0 200px;
+}
+.template-class .title{
+    margin-top: 20px;
+    color: #2a2a2a;
+    font-size: 14px;
+    font-weight: 800;
+}
+.template-class .template-class-button{
+    margin-top: 20px;
+    font-size: 13px;
+    border-radius: 15px;
+    background-color: #f7f7f7;
+    display: inline-block;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: #555;
+}
+
+.template-row{
+    display: flex;
+}
+.mask{
+    background: #000;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    opacity: .3;
+    z-index: 2;
+}
+.template-dialog{
+    width: 910px;
+    height: 650px;
+    
+    display: flex;
+    position: fixed;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top:80px;
+    z-index: 5;
+}
+.dialog-body{
+    padding: 25px;
+    flex: 0 0 700px;
+    background-color: #fff;
+}
+.dialog-switch {
+    flex:  0 0 80px;
+    line-height: 100%;
+}
