@@ -13,69 +13,29 @@
 </body>
 <script>
     function sss() {
-        console.log('ssss')
-        var watchedVideosByFriends = function (watchedVideos, friends, id, level) {
-            var arrId = new Array(101).fill(0)
-            var obj = {}
-            var friendMap = friends[id]
-            var newMap = []
-
-            for (var i = 1; i < level; i++) {
-                newMap = [];
-                friendMap.map(item => {
-                    newMap.push(...friends[item])
-                })
-                friendMap = newMap;
-            }
-            friendMap.map(item => {
-                arrId[item]++
-            })
-            var friendRes = []
-
-            for (var i = 0; i < 101; i++) {
-                if (arrId[i] > 0) {
-                    friendRes.push(i)
-                }
-            }
-            console.log(friendRes);
-            friendRes.map(item => {
-                watchedVideos[item].map(value => {
-                    if (obj.hasOwnProperty(value)) {
-                        obj[value]++
-                    } else {
-                        obj[value] = 1
-                    }
-                })
-            })
+        var findContinuousSequence = function (target) {
             debugger
-
-            let keysSorted = Object.keys(obj).sort(function (a, b) {
-                if (obj[b] == obj[a]) {
-                    if (a > b) {
-                        return 1
-                    } else {
-                        return -1
-                    }
+            var star = 0;
+            var end = 1;
+            var res = []
+            while (true) {
+                if (end >= target / 2) {
+                    return res;
                 }
-                return obj[a] - obj[b]
-            })
-            return keysSorted
+                if (star + end < target) {
+                    end++;
+                } else if (star + end > target) {
+                    star++;
+                } else {
+                    var arr = []
+                    for (var k = star; k <= end; k++) {
+                        arr.push(k)
+                    }
+                    res.push(arr)
+                }
+            }
         };
-
-        watchedVideosByFriends([
-                ["A", "B"],
-                ["C"],
-                ["B", "C"],
-                ["D"]
-            ],
-            [
-                [1, 2],
-                [0, 3],
-                [0, 3],
-                [1, 2]
-            ],
-            0,
-            2, )
+        findContinuousSequence(9)
     }
 </script>
 
