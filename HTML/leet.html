@@ -13,29 +13,45 @@
 </body>
 <script>
     function sss() {
-        var findContinuousSequence = function (target) {
-            debugger
-            var star = 0;
-            var end = 1;
-            var res = []
-            while (true) {
-                if (end >= target / 2) {
-                    return res;
-                }
-                if (star + end < target) {
-                    end++;
-                } else if (star + end > target) {
-                    star++;
+        function f(n) {
+            let dp = new Array(10).fill(0);
+            Array.prototype.map.call(n + '', (e, index) => {
+                if (index == 0) {
+                    dp[--e] = 1
                 } else {
-                    var arr = []
-                    for (var k = star; k <= end; k++) {
-                        arr.push(k)
+                    if(e == 0){
+                        dp[9]++
+                    }else{
+                    for (var i = 1; i < e; i++) {
+                        if (dp[i] > 0) {
+                            dp[i]--
+                            dp[9]++
+                            dp[e - 1]++
+                            return;
+                        } else {
+                            dp[e]++
+                        }
                     }
-                    res.push(arr)
+                    }
                 }
-            }
-        };
-        findContinuousSequence(9)
+            })
+            dp.map((val, index) => {
+                if (val != 0) {
+                    console.log(index, ':', val)
+                }
+            })
+            return;
+        }
+        // console.log('200')
+        // f(200)
+        // console.log('1')
+        // f(1)
+        // console.log('123213')
+        // f(123213)
+        console.log('38')
+        f(38)
+        console.log('24')
+        f(24)
     }
 </script>
 
