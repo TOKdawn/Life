@@ -15,7 +15,7 @@
         <button onclick="printSVG.printSVG()"> 获取</button>
         <button onclick="printSVG.boxLayout()"> 创建</button>
         <button onclick="printSVG.clearBox()"> 删除</button>
-        <!-- <button onclick="printSVG.SVGclip()"> 裁剪</button> -->
+        <button onclick="printSVG.SVGclip()"> 裁剪</button>
         <!-- <button onclick="printSVG.removeSVGclip()"> 取消</button> -->
 
     </div>
@@ -59,8 +59,8 @@
         /* overflow:scroll */
     }
     #SVGDom{
-        top:300px;
-        left: 300px;
+        top:800px;
+        left: 800px;
         display: block;
         position:absolute;
     }
@@ -84,8 +84,8 @@
         paperType: 'A4',
         paperSize:{
             'A4':{
-                W:1164-50,
-                H:1644-50,
+                W:780,
+                H:1123,
             },
             'A3':{
                 W:1684,
@@ -258,7 +258,7 @@
             }
         },
         boxLayout: function(){ //裁剪框初始布局
-            debugger
+            // debugger
             var location = printSVG.boxType == 'vertical' ? { 'W': printSVG.paperSize[printSVG.paperType].W , 'H': printSVG.paperSize[printSVG.paperType].H } : { 'W': printSVG.paperSize[printSVG.paperType].H , 'H': printSVG.paperSize[printSVG.paperType].W };
             var boxNumForX = Math.ceil(printSVG.SVG.W / location.W)
             var boxExcursionX = printSVG.SVG.W % location.W ? (location.W -  printSVG.SVG.W % location.W  ) / 2 : 0;
@@ -285,16 +285,17 @@
             iframe.setAttribute('style', 'position:absolute;width:0px;height:0px;left:0px;top:0px;');
             document.body.appendChild(iframe);
             for(var id in printSVG.boxData){
+                debugger
                var  Rectangle = printSVG.RectangleOverlap(printSVG.boxData[id],printSVG.SVG); //获取相交部分
                printSVG.SVGclip(Rectangle); //裁剪SVG
                printSVG.renderRes(printSVG.boxData[id],printSVG.SVG,'rgba(36,153,249,0.1)'); // 生成待打印纸张
             } 
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-            if (navigator.userAgent.indexOf("MSIE") > 0) { // 对于IE一下移除iframe
-                document.body.removeChild(iframe);
-            }
-            document.body.removeChild(iframe);
+            // iframe.contentWindow.focus();
+            // iframe.contentWindow.print();
+            // if (navigator.userAgent.indexOf("MSIE") > 0) { // 对于IE一下移除iframe
+            //     document.body.removeChild(iframe);
+            // }
+            // document.body.removeChild(iframe);
         },
         SVGclip:function(REClocation){
             var ellipse = printSVG.draw.rect(REClocation.W, REClocation.H).move(REClocation.X - printSVG.SVG.X , REClocation.Y - printSVG.SVG.Y);
@@ -322,11 +323,12 @@
             var div = $("<div></div>");
                 div.css({
                     'position': 'relative',
-                    'width': Box.W+50,
-                    'height': Box.H+50,
+                    'width': Box.W,
+                    'height': Box.H,
                     'backgroundColor': bg,
                     'overflow':'hidden',
-                    'padding': '25px',
+                    'padding': '10px',
+                    'outline':'red 1px solid'
                 })
            var  SVGDom = $('#SVGDom').clone();
            SVGDom.css({
@@ -336,7 +338,7 @@
            })
             div.append(SVGDom);
             $("iframe")[0].contentWindow.document.body.append(div[0]);
-            // $('.res').append(div);
+            $('.res').append(div);
         },
         printPart: function (idstr) { //idstr 要打印内容中的id
             var el = document.getElementById(idstr);
@@ -357,6 +359,8 @@
             document.body.removeChild(iframe);
         }
     }
+    
+    
     window.onload = function () {
         printSVG.init()
     }
