@@ -246,7 +246,9 @@ function bindResizeListener(trigger, target) { //触发按钮和father元素
         .on('touchendoutside', onDragEnd)
         .on('mousemove', onDragMove)
         .on('touchmove', onDragMove);
+/*
 
+*/
     function onDragStart(event) {
         if (!this.dragging) {
             this.data = event.data;
