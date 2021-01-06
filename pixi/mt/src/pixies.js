@@ -89,7 +89,33 @@ export function useSkin(name, father) {
     //     fahter[skin.type] = null;
     //     remove(currentSkin);
     // }
+/*
 
+*故事要从哪里讲起呢  —*
+*从石器时代古猿们在岩洞中刻下一幅幅壁画*
+*到古典时代诗人们传颂着的一段段传奇故事*
+*再到近代文人们写下的一篇篇小说,现代电影人留下的一幕幕光影.*
+*表达与创作一直是我们这个物种与生俱来的原始冲动…*
+生而为人,在满足了吃饱喝好的基本生理安全需求后
+马洛斯需求层次模型自然的会向上推进,去寻找社交尊重和自我表达.
+在一个个归家路上的思索中,
+在一次次疑问和求索的对照后,
+终于我在这里,以这样的方式,与你们相见.
+这里是曙光,小镇青年,西二旗搬砖码农,真空下的理性人,才开始做第一个视频的up主.
+
+
+人生中第一个视频应该以什么为主题,
+以后这个频道要更新什么样的内容.
+自己能坚持做up主多久,
+这些问题也许没人在意也不需要在意,
+但我确实是一个构建好一套自洽的逻辑链条后才会去做事的人.
+做什么不重要,如何做不重要,但是为什么要做,对我来说很重要.
+
+J 那么为何要做呢?
+G 这开头不都说了么,自我表达啊.这人吃饱喝足,就找自己的存在感呗.
+
+J 那也不太对啊,你这视频做了他有人看么?而且自我表达,你大可以去写文章做音乐啊
+*/
     // if (!currentSkin || currentSkin.name !== skin.name) {
     //     father[skin.type] = skin;
     //     positionSkin(skin);
@@ -145,10 +171,15 @@ export function wrapNormal(name, focusCB) {
     //     this.pivot.x = width / 2;
     //     this.pivot.y = height / 2;
     //     this.endFill();
-    // };
+    // }; 
+
+/* 为何要做  --> 自我表达 
+            --> 
+
+*/
     // container.addChild(handler);
     // container.handler = handler;
-    // // bind listeners for handler
+    // // bind listeners for handler 
     // bindMoveListener(handler, container);
     // bindShowPanelListener(handler, container, focusCB);
     const closeButton = getSprite('system.close');

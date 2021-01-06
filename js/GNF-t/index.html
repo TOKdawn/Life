@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <input type="text" id="example" />
+    <div class="b">1232</div>
+    <div class="a ">1332</div>
+    <iframe id="editframe" src="https://gbf-raidfinder.la-foret.me/" ></iframe>
+</body>
+<script>
+ window.onload = function(){
+     var NOWID = ''
+     var NUM = 1
+     window.addEventListener('message', function(e){
+        var getData = JSON.parse(e.data)
+        console.log('获取数据:',getData)
+        if(getData && getData.id != NOWID){
+            $('#example').attr("value",getData.id)
+            $('.a').text(getData.time+'更新')
+            $('.b').text('第'+NUM+'次舔')
+            NUM++
+        }
+        }, false);
+ }
+</script>
+
+</html>
