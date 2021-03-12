@@ -14,22 +14,56 @@
     <p id="example-output">Nothing yet</p>
 </body>
 <script>
-    var timer = null;
-    function debounce(callback, delay) {
-        return function () {
-            var context = this;
-            var args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                callback.apply(context, args);
-            }, delay);
+   function deepCopy(originObj, map = new WeakMap()) {//WeakMap对象是一组键/值对的集合，其中的键是弱引用的。其键必须是对象，而值可以是任意的
+    // 判断是否为基本数据类型
+    debugger
+    if(isObject(originObj)) {
+        // 判断是否为循环引用
+        if(map.get(originObj)) {// originObj是可枚举对象则返回否则返回undefined
+            return map.get(originObj);
         }
+       
+        // 判断是否为几种特殊需要处理的类型
+        let type = [Date, RegExp, Set, Map, WeakMap, WeakSet];
+        if(type.includes(originObj.constructor)) {//检查素组中是否包含某值 
+            return new originObj.constructor(originObj);
+        }
+        // 其他类型
+        let allDesc = Object.getOwnPropertyDescriptors(originObj);
+        let cloneObj = Object.create(Object.getPrototypeOf(originObj), allDesc);
+
+        // Reflect.ownKeys 可以获取到
+        for(const prop of Reflect.ownKeys(originObj)) {
+            cloneObj[prop] = isObject(originObj[prop]) && typeof originObj[prop] !== 'function' ? deepCopy(originObj[prop], map) : originObj[prop];
+        }
+        return cloneObj;
+    } else {
+        return originObj;
     }
-    function ajax(){
-        console.log($(this).val())
-        $('#example-output').text($(this).val());
-    }
-    $('#example').bind('input propertychange',debounce(ajax,500))
+}
+
+// 是否为引用类型
+function isObject(obj) {
+    return typeof obj === 'object' || typeof obj === 'function' && obj !== null;
+}
+
+let obj = {
+    fun: function(){},
+    syb: Symbol('foo'),
+    a: undefined,
+    b: NaN,
+    c: Infinity,
+    reg : /^abc$/,
+    date: new Date(),
+    set: new Set([1, 2, 3, 4, 4]),
+    map: new Map([
+        ['name', '张三'],
+        ['title', 'Author']
+      ]),
+    text:'aaa',
+}
+let cloneObj = deepCopy(obj);
+console.log(cloneObj);
 </script>
 
 </html>
