@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     <title>Document</title>
 </head>
 
@@ -14,24 +14,24 @@
     <p id="example-output">Nothing yet</p>
 </body>
 <script>
-   function deepCopy(originObj, map = new WeakMap()) {//WeakMap对象是一组键/值对的集合，其中的键是弱引用的。其键必须是对象，而值可以是任意的
+function deepCopy(originObj, map = new WeakMap()) {
     // 判断是否为基本数据类型
-    debugger
     if(isObject(originObj)) {
         // 判断是否为循环引用
-        if(map.get(originObj)) {// originObj是可枚举对象则返回否则返回undefined
+        if(map.get(originObj)) {
             return map.get(originObj);
         }
        
         // 判断是否为几种特殊需要处理的类型
         let type = [Date, RegExp, Set, Map, WeakMap, WeakSet];
-        if(type.includes(originObj.constructor)) {//检查素组中是否包含某值 
+        if(type.includes(originObj.constructor)) {
             return new originObj.constructor(originObj);
         }
+        
         // 其他类型
         let allDesc = Object.getOwnPropertyDescriptors(originObj);
         let cloneObj = Object.create(Object.getPrototypeOf(originObj), allDesc);
-
+        map.set(originObj,cloneObj)
         // Reflect.ownKeys 可以获取到
         for(const prop of Reflect.ownKeys(originObj)) {
             cloneObj[prop] = isObject(originObj[prop]) && typeof originObj[prop] !== 'function' ? deepCopy(originObj[prop], map) : originObj[prop];
@@ -41,29 +41,26 @@
         return originObj;
     }
 }
-
 // 是否为引用类型
 function isObject(obj) {
     return typeof obj === 'object' || typeof obj === 'function' && obj !== null;
 }
-
-let obj = {
-    fun: function(){},
-    syb: Symbol('foo'),
-    a: undefined,
-    b: NaN,
-    c: Infinity,
-    reg : /^abc$/,
-    date: new Date(),
-    set: new Set([1, 2, 3, 4, 4]),
-    map: new Map([
-        ['name', '张三'],
-        ['title', 'Author']
-      ]),
-    text:'aaa',
+var b={gg:123,ff:a}
+var a={
+    c:{
+        k:1,
+        k2:2
+    },
+    d:{
+        d1:[1,2],
+        d2:b,
+        d3:{
+            f1:'kkk'
+        }
+    }
 }
-let cloneObj = deepCopy(obj);
-console.log(cloneObj);
+b.ff = a
+console.log(deepCopy(a))
 </script>
 
 </html>
