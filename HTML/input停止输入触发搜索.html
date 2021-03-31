@@ -5,62 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
 
 <body>
     <input type="text" id="example" />
     <p id="example-output">Nothing yet</p>
+    <div id ="light" style="width:100px;height:100px;border-radius: 50%;"></div>
 </body>
 <script>
-function deepCopy(originObj, map = new WeakMap()) {
-    // 判断是否为基本数据类型
-    if(isObject(originObj)) {
-        // 判断是否为循环引用
-        if(map.get(originObj)) {
-            return map.get(originObj);
-        }
-       
-        // 判断是否为几种特殊需要处理的类型
-        let type = [Date, RegExp, Set, Map, WeakMap, WeakSet];
-        if(type.includes(originObj.constructor)) {
-            return new originObj.constructor(originObj);
-        }
-        
-        // 其他类型
-        let allDesc = Object.getOwnPropertyDescriptors(originObj);
-        let cloneObj = Object.create(Object.getPrototypeOf(originObj), allDesc);
-        map.set(originObj,cloneObj)
-        // Reflect.ownKeys 可以获取到
-        for(const prop of Reflect.ownKeys(originObj)) {
-            cloneObj[prop] = isObject(originObj[prop]) && typeof originObj[prop] !== 'function' ? deepCopy(originObj[prop], map) : originObj[prop];
-        }
-        return cloneObj;
-    } else {
-        return originObj;
-    }
+function unique(arr) {
+    var obj = {};
+    return arr.filter(function(item, index, arr){
+        debugger
+        return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true)
+    })
 }
-// 是否为引用类型
-function isObject(obj) {
-    return typeof obj === 'object' || typeof obj === 'function' && obj !== null;
-}
-var b={gg:123,ff:a}
-var a={
-    c:{
-        k:1,
-        k2:2
-    },
-    d:{
-        d1:[1,2],
-        d2:b,
-        d3:{
-            f1:'kkk'
-        }
-    }
-}
-b.ff = a
-console.log(deepCopy(a))
+    var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+        console.log(unique(arr))
+
 </script>
 
 </html>
