@@ -44,7 +44,10 @@ function createBunny(x, y) {
         // .on('mouseup', onDragEnd)
         // .on('mouseupoutside', onDragEnd)
         // .on('mousemove', onDragMove);
-
+        //在那些还未强大的日子里,总要寻觅些评价来认知自己,把自我与价值寄托与外,才能感知它们.
+        //在那些还未智慧的岁月里,总要抓住些判断来锚定生活,把未来与虚无描绘成型,才能正视它们.
+        //也许我终将沉溺与愚笨和弱小,我也从来都浸泡于此,以卑劣为生.发现身边水的鱼儿也无法在空气中呼吸.
+        //No truce with the furies
         // For touch-only events
         // .on('touchstart', onDragStart)
         // .on('touchend', onDragEnd)
