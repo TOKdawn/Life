@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+.el {
+  position: relative;
+  width: 256px;
+  height: 256px;
+  margin: 50px auto;
+  border-radius: 10px;
+}
+.el {
+  background: linear-gradient(to right, deeppink, cyan);
+}
+.el::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  background: paint(corners-gradient, deeppink, cyan, orangered, yellow);
+}
+
+
+</style>
+
+<div class="Demo" id="Demo">
+  <div id="el" class="el "></div>
+</div>
+<script>
+    if ('paintWorklet' in CSS) {
+        console.log('it work')
+        CSS.paintWorklet.addModule('./paint.js');
+    }
+</script>
+</html>

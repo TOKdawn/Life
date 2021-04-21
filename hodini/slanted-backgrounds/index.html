@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+    }
+
+    .Demo {
+    padding-bottom: 25px;
+    font-size: 2em;
+    }
+    .el {
+    padding-right: 30px;
+    max-width: 600px;
+    }
+    .el span {
+    line-height: 1.83;
+    padding: .25em 10px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background: paint(slanted-bg);
+    }
+
+
+</style>
+
+<body>
+    <div class="Demo" id="Demo">
+        <p class="el" id="el"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id tempore repudiandae iusto odio adipisci, quidem consectetur ullam, itaque alias qui?</span></p>
+      </div>
+</body>
+<script>
+    if ('paintWorklet' in CSS) {
+        console.log('it work')
+        CSS.paintWorklet.addModule('./worklet.js');
+    }
+</script>
+
+</html>
