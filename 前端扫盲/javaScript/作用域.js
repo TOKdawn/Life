@@ -29,3 +29,4 @@ function checkscope(){
     return f();
 }
 checkscope();
+// res:local scope
