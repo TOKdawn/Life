@@ -47,7 +47,6 @@ Function.prototype.myBindPlus = function(content){
     return newbind;
 }
 
-
 var fn = Person.say.myBind(Person1,123,111)
 fn()
 fn(999,000)
